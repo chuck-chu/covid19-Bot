@@ -83,10 +83,10 @@ def processRequest(req):
         }
     elif intent == "Welcome" or intent == "continue_conversation" or intent == "not_send_email" or intent == "endConversation" or intent == "Fallback" or intent == "covid_faq" or intent == "select_country_option":
         fulfillmentText = result.get("fulfillmentText")
-        #log.saveConversations(sessionID, query_text, fulfillmentText, intent, db)
+        log.saveConversations(sessionID, query_text, fulfillmentText, intent, db)
     elif intent == "send_report_to_email":
         fulfillmentText = result.get("fulfillmentText")
-        #log.saveConversations(sessionID, "Sure send email", fulfillmentText, intent, db)
+        log.saveConversations(sessionID, "Sure send email", fulfillmentText, intent, db)
         #val = log.getcasesForEmail("country", "", db)
 
         print("===>",val)
@@ -104,8 +104,8 @@ def processRequest(req):
                           "\n" + " Last updated : " + str(
             fulfillmentText.get('last_update')) + "\n\n*******END********* \n "
         print(webhookresponse)
-        #log.saveConversations(sessionID, "Cases worldwide", webhookresponse, intent, db)
-        #log.saveCases("world", fulfillmentText, db)
+        log.saveConversations(sessionID, "Cases worldwide", webhookresponse, intent, db)
+        log.saveCases("world", fulfillmentText, db)
 
         return {
 
@@ -180,7 +180,7 @@ def processRequest(req):
 
 
 
-        #log.saveConversations(sessionID, "Indian State Cases", webhookresponse1, intent, db)
+        log.saveConversations(sessionID, "Indian State Cases", webhookresponse1, intent, db)
         return {
 
             "fulfillmentMessages": [
@@ -250,11 +250,11 @@ def prepareEmail(contact_list):
     mailclient.sendEmail(contact_list)
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 #    DEFAULT_PORT = 8000
-#    #port = int(os.getenv('PORT'))
+    port = int(os.getenv('PORT'))
 #    port = int(os.getenv('PORT',DEFAULT_PORT))
-##    print("Starting app on port %d" % port)
- #   app.run(debug=False, port=port, host='0.0.0.0')
-if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    print("Starting app on port %d" % port)
+    app.run(debug=False, port=port, host='0.0.0.0')
+#if __name__ == "__main__":
+#    app.run(port=5000, debug=True)
